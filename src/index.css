@@ -1,0 +1,50 @@
+.app-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.download-btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #2ecc71;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.download-btn:hover {
+  background-color: #27ae60;
+}
+
+.loading-btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #3498db;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.build-pdf {
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #e67e22;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.build-pdf:hover {
+  background-color: #d35400;
+}
