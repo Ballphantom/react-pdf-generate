@@ -4,9 +4,18 @@ import PDF from "./components/PDF";
 
 function App() {
   const [generatePDF, setGeneratePDF] = useState(false);
+  const [loadingTime, setLoadingTime] = useState(0);
 
   const handleBuildPlanClick = () => {
+    const startTime = performance.now(); 
+
     setGeneratePDF(true);
+
+    setTimeout(() => {
+      const endTime = performance.now();
+      const timeElapsed = (endTime - startTime) / 1000; 
+      setLoadingTime(timeElapsed);
+    }, 1000); 
   };
 
   return (
@@ -33,6 +42,10 @@ function App() {
         <PDFViewer width={600} height={821}>
           <PDF />
         </PDFViewer>
+      )}
+
+      {loadingTime > 0 && (
+        <p>เวลาที่ใช้ในการ generate PDF: {loadingTime.toFixed(2)} วินาที</p>
       )}
     </div>
   );
