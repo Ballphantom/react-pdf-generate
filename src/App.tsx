@@ -7,15 +7,15 @@ function App() {
   const [loadingTime, setLoadingTime] = useState(0);
 
   const handleBuildPlanClick = () => {
-    const startTime = performance.now(); 
+    const startTime = performance.now();
 
     setGeneratePDF(true);
 
     setTimeout(() => {
       const endTime = performance.now();
-      const timeElapsed = (endTime - startTime) / 1000; 
+      const timeElapsed = (endTime - startTime) / 1000;
       setLoadingTime(timeElapsed);
-    }, 1000); 
+    }, 1000);
   };
 
   return (
@@ -28,24 +28,28 @@ function App() {
 
       {generatePDF && (
         <div>
-          <PDFDownloadLink document={<PDF />} fileName="myfirstpdf.pdf">
-            {({ loading }) =>
-              loading ? (
-                <button className="loading-btn">Loading Document ...</button>
-              ) : (
-                <button className="download-btn">Download now!</button>
-              )
-            }
-          </PDFDownloadLink>  
-          <PDFViewer width={600} height={821}>
-            <PDF />
-          </PDFViewer>  
+          <div>
+            <PDFDownloadLink document={<PDF />} fileName="myfirstpdf.pdf">
+              {({ loading }) =>
+                loading ? (
+                  <button className="loading-btn">Loading Document ...</button>
+                ) : (
+                  <button className="download-btn">Download now!</button>
+                )
+              }
+            </PDFDownloadLink>
+          </div>
+          <div>
+            <PDFViewer width={600} height={821}>
+              <PDF />
+            </PDFViewer>
+          </div>
         </div>
       )}
 
-      {loadingTime > 0 && (
+      {/* {loadingTime > 0 && (
         <p>เวลาที่ใช้ในการ generate PDF: {loadingTime.toFixed(2)} วินาที</p>
-      )}
+      )} */}
     </div>
   );
 }
