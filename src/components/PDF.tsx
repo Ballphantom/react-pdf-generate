@@ -10,7 +10,7 @@ import food from "../food.png";
 
 const styles = StyleSheet.create({
   page: {
-    padding: 30,
+    padding: 20,
   },
   title: {
     fontSize: 24,
@@ -47,13 +47,13 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   table: {
-    width: '100%',
+    width: "100%",
     marginBottom: 10,
     marginTop: 10,
   },
   tableRow: {
-    flexDirection: 'row',
-    backgroundColor: '#e4e4e4',
+    flexDirection: "row",
+    backgroundColor: "#e4e4e4",
   },
   tableCol: {
     flex: 1,
@@ -63,21 +63,30 @@ const styles = StyleSheet.create({
     flex: 0.3,
   },
   tableColRight: {
-    flex: 0.7, 
+    flex: 0.7,
   },
   tableTitle: {
     fontSize: 14,
-    textAlign: 'left',
-    fontWeight: 'bold',
+    textAlign: "left",
+    fontWeight: "bold",
   },
   tableParagraph: {
     fontSize: 12,
-    textAlign: 'left',
+    textAlign: "left",
   },
 });
 
 function generatePDF() {
   const numPages = 100;
+  const numRows = 3;
+  const numCols = 3;
+  const data = Array.from({ length: numRows }, (_, rowIndex) =>
+    Array.from({ length: numCols }, (_, colIndex) => ({
+      rowIndex,
+      colIndex,
+    }))
+  );
+
   const pages = Array.from({ length: numPages }, (_, index) => index + 1);
 
   return (
@@ -85,33 +94,18 @@ function generatePDF() {
       {pages.map((pageNumber) => (
         <Page key={pageNumber} style={styles.page}>
           <Text style={styles.title}>Hello world</Text>
-          <View style={styles.section}>
-            {[...Array(3)].map((_, index) => (
-              <View key={index} style={styles.box}>
-                <Image src={food} />
-                <Text style={styles.parragraph}>Lorem ipsum dolor sit amet.</Text>
-              </View>
-            ))}
-          </View>
-          <View style={styles.section}>
-            {[...Array(3)].map((_, index) => (
-              <View key={index} style={styles.box}>
-                <Image src={food} />
-                <Text style={styles.parragraph}>Lorem ipsum dolor sit amet.</Text>
-              </View>
-            ))}
-          </View>
-          <View style={styles.section}>
-            {[...Array(3)].map((_, index) => (
-              <View key={index} style={styles.box}>
-                <Image src={food} />
-                <Text style={styles.parragraph}>Lorem ipsum dolor sit amet.</Text>
-              </View>
-            ))}
-          </View>
-          <View style={styles.pageNumber}>
-            <Text render={({ pageNumber, totalPages }) => `${pageNumber}/${totalPages}`} />
-          </View>
+          {data.map((row, rowIndex) => (
+            <View key={rowIndex} style={styles.section}>
+              {row.map((colIndex) => (
+                <View key={`${rowIndex}-${colIndex}`} style={styles.box}>
+                  <Image src={food} />
+                  <Text style={styles.parragraph}>
+                    Lorem ipsum dolor sit amet.
+                  </Text>
+                </View>
+              ))}
+            </View>
+          ))}
         </Page>
       ))}
 
@@ -140,7 +134,11 @@ function generatePDF() {
                 <Text style={styles.tableParagraph}>Zataten</Text>
               </View>
               <View style={[styles.tableCol, styles.tableColRight]}>
-                <Text style={styles.tableParagraph}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, magnam? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit, pariatur.</Text>
+                <Text style={styles.tableParagraph}>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex,
+                  magnam? Lorem ipsum dolor sit, amet consectetur adipisicing
+                  elit. Sit, pariatur.
+                </Text>
               </View>
             </View>
             <View style={styles.tableRow}>
@@ -148,7 +146,11 @@ function generatePDF() {
                 <Text style={styles.tableParagraph}>Zataten</Text>
               </View>
               <View style={[styles.tableCol, styles.tableColRight]}>
-                <Text style={styles.tableParagraph}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, magnam? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit, pariatur.</Text>
+                <Text style={styles.tableParagraph}>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex,
+                  magnam? Lorem ipsum dolor sit, amet consectetur adipisicing
+                  elit. Sit, pariatur.
+                </Text>
               </View>
             </View>
             <View style={styles.tableRow}>
@@ -156,7 +158,11 @@ function generatePDF() {
                 <Text style={styles.tableParagraph}>Zataten</Text>
               </View>
               <View style={[styles.tableCol, styles.tableColRight]}>
-                <Text style={styles.tableParagraph}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, magnam? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit, pariatur.</Text>
+                <Text style={styles.tableParagraph}>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex,
+                  magnam? Lorem ipsum dolor sit, amet consectetur adipisicing
+                  elit. Sit, pariatur.
+                </Text>
               </View>
             </View>
             <View style={styles.tableRow}>

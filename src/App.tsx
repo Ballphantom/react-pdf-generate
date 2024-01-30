@@ -27,21 +27,20 @@ function App() {
       )}
 
       {generatePDF && (
-        <PDFDownloadLink document={<PDF />} fileName="myfirstpdf.pdf">
-          {({ loading }) =>
-            loading ? (
-              <button className="loading-btn">Loading Document ...</button>
-            ) : (
-              <button className="download-btn">Download now!</button>
-            )
-          }
-        </PDFDownloadLink>
-      )}
-
-      {generatePDF && (
-        <PDFViewer width={600} height={821}>
-          <PDF />
-        </PDFViewer>
+        <div>
+          <PDFDownloadLink document={<PDF />} fileName="myfirstpdf.pdf">
+            {({ loading }) =>
+              loading ? (
+                <button className="loading-btn">Loading Document ...</button>
+              ) : (
+                <button className="download-btn">Download now!</button>
+              )
+            }
+          </PDFDownloadLink>  
+          <PDFViewer width={600} height={821}>
+            <PDF />
+          </PDFViewer>  
+        </div>
       )}
 
       {loadingTime > 0 && (
