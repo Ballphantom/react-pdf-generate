@@ -25,6 +25,7 @@ function generatePDF() {
       {Array.from({ length: pages }, (_, pageIndex) => {
         const startIdx = pageIndex * 4;
         const endIdx = Math.min(startIdx + 4, data.length); 
+        
         return (
           <Page key={pageIndex + 1} style={styles.page}>
             <View style={styles.contentContainer}>
