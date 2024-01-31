@@ -40,16 +40,16 @@ function App() {
             </PDFDownloadLink>
           </div>
           <div>
-            <PDFViewer width={600} height={821}>
+            <PDFViewer width={800} height={900}>
               <PDF />
             </PDFViewer>
           </div>
         </div>
       )}
 
-      {/* {loadingTime > 0 && (
+      {loadingTime > 0 && (
         <p>เวลาที่ใช้ในการ generate PDF: {loadingTime.toFixed(2)} วินาที</p>
-      )} */}
+      )}
     </div>
   );
 }

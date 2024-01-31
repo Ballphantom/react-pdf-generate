@@ -1,61 +1,88 @@
-import { Document, Text, Page, Image, View } from "@react-pdf/renderer";
-import food from "../food.png";
-import { styles } from "./style";
+import { Document, Page, Text, View } from '@react-pdf/renderer';
+import { styles } from './style';
+const data = {
+  Monday: 12,
+  Tuesday: 6,
+  Wednesday: 12,
+  Thursday: 6,
+  Friday: 12,
+  Saturday: 4,
+  Sunday: 16
+};
+
+const columns = 4;
+const rowsPerPage = 9; 
+
+const calculateRows = (count: number) => Math.ceil(count / columns);
 
 function generatePDF() {
-  const numCols = 4;
-  const totalCards = 32;
+  const mealData = Object.entries(data);
+  const pages: JSX.Element[] = [];
 
-  const data: { index: number }[][] = [];
-  let cardsAdded = 0;
+  let currentPageRows: number = 0;
+  let currentPageContent: JSX.Element[] = [];
 
-  for (let i = 0; i < Math.ceil(totalCards / numCols); i++) {
-    const row = [];
-    for (let j = 0; j < numCols; j++) {
-      if (cardsAdded < totalCards) {
-        row.push({ index: cardsAdded });
-        cardsAdded++;
+  mealData.forEach(([day, count]) => {
+    const dayRows = calculateRows(count);
+    const dayContent: JSX.Element[] = [];
+
+    for (let i = 0; i < dayRows; i++) {
+      const rowIndex = i + 1;
+      const rowContent: JSX.Element[] = [];
+
+      for (let j = 0; j < columns; j++) {
+        const mealIndex = i * columns + j;
+        const mealKey = `${day}-${mealIndex}`;
+
+        if (mealIndex < count) {
+          rowContent.push(<View key={mealKey} style={styles.box} />);
+        } else {
+          rowContent.push(<View key={mealKey} style={{ width: '25%' }} />);
+        }
       }
+
+      dayContent.push(
+        <View key={`row-${rowIndex}`} style={styles.row}>
+          {rowContent}
+        </View>
+      );
     }
-    data.push(row);
+
+    if (currentPageRows + dayRows <= rowsPerPage) {
+      currentPageContent.push(
+        <View key={day} style={styles.container}>
+          <Text style={styles.day}>{day}</Text>
+          {dayContent}
+        </View>
+      );
+      currentPageRows += dayRows;
+    } else {
+      pages.push(
+        <Page key={`page-${pages.length + 1}`} size="A4" style={styles.page}>
+          {currentPageContent}
+        </Page>
+      );
+      currentPageContent = [
+        <View key={day} style={styles.container}>
+          <Text style={styles.day}>{day}</Text>
+          {dayContent}
+        </View>
+      ];
+      currentPageRows = dayRows;
+    }
+  });
+
+  if (currentPageContent.length > 0) {
+    pages.push(
+      <Page key={`page-${pages.length + 1}`} size="A4" style={styles.page}>
+        {currentPageContent}
+      </Page>
+    );
   }
-  const pages = Math.ceil(data.length / 4);
+
   return (
     <Document>
-      {Array.from({ length: pages }, (_, pageIndex) => {
-        const startIdx = pageIndex * 4;
-        const endIdx = Math.min(startIdx + 4, data.length); 
-        return (
-          <Page key={pageIndex + 1} style={styles.page}>
-            <View style={styles.contentContainer}>
-              <Text style={styles.title}>Hello world</Text>
-              {data.slice(startIdx, endIdx).map((row, rowIndex) => (
-                <View key={rowIndex} style={styles.section}>
-                  {row.map((colIndex) => (
-                    <View
-                      key={`${rowIndex}-${colIndex}`}
-                      style={styles.box}
-                    >
-                      <Image src={food} />
-                      <Text style={styles.parragraph}>
-                        Lorem ipsum dolor sit amet.
-                      </Text>
-                    </View>
-                  ))}
-                </View>
-              ))}
-            </View>
-            <View style={styles.pageFooter}>
-              <View style={styles.footer}>
-                <Text style={styles.pageFooterText}>Footer</Text>
-              </View>
-              <Text style={styles.pageFooterText}>
-                {pageIndex +1}/{pages}
-              </Text>
-            </View>
-          </Page>
-        );
-      })}
+      {pages}
     </Document>
   );
 }
