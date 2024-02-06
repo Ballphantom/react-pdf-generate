@@ -29,7 +29,7 @@ function App() {
       {generatePDF && (
         <div>
           <div>
-            <PDFDownloadLink document={<PDF />} fileName="myfirstpdf.pdf">
+            <PDFDownloadLink document={<PDF />} fileName="test.pdf">
               {({ loading }) =>
                 loading ? (
                   <button className="loading-btn">Loading Document ...</button>
