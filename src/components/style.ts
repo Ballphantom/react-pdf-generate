@@ -54,14 +54,6 @@ export const styles = StyleSheet.create({
     fontSize: 12,
     color: 'grey'
   },
-  navbar: {
-    fontSize: 12,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 5,
-    marginBottom: 5,
-  },
   userData: {
     flexDirection: 'column',
     justifyContent: 'center',

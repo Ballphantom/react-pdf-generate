@@ -28,7 +28,6 @@ function generatePDF() {
     const dayRows = calculateRows(count);
     let remainingRows: number = dayRows; // จำนวนแถวที่เหลือในวันนี้
 
-    // เพิ่ม Text เพื่อแสดงวัน
     currentPageContent.push(
       <View key={`header-${day}`} style={styles.container}>
         <Text style={styles.day}>{day}</Text>
@@ -56,7 +55,6 @@ function generatePDF() {
         pages.push(
           <Page key={`page-${pages.length + 1}`} size="A4" style={styles.page}>
             {currentPageContent}
-            {/* เพิ่ม footer */}
             <View style={styles.footer}>
               <Text>Footer line 1</Text>
               <Text>Footer line 2</Text>
@@ -90,12 +88,6 @@ function generatePDF() {
               <Text>Piyapong Wongfai</Text>
               <Text style={styles.description}>Dining Program</Text>
               <Text style={styles.description}>Light Foods</Text>
-            </View>
-            <View style={styles.navbar}>
-              <Text>Breakfast</Text>
-              <Text>Lunch</Text>
-              <Text>Afternoon</Text>
-              <Text>Dessert</Text>
             </View>
             {currentPageContent}
             <View style={styles.footer}>
